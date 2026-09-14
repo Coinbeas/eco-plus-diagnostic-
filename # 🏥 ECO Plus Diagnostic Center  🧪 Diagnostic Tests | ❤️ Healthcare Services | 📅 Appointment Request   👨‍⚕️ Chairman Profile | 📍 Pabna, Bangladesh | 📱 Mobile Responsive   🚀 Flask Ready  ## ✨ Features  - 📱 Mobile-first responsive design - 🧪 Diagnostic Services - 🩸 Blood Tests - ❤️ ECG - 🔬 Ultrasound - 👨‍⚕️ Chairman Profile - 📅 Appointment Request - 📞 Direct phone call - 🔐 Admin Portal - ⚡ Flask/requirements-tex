@@ -1,0 +1,4 @@
+Flask>=3.1,<4
+python-dotenv>=1.0,<2
+PyOTP>=2.9,<3
+qrcode[pil]>=8.0,<9
