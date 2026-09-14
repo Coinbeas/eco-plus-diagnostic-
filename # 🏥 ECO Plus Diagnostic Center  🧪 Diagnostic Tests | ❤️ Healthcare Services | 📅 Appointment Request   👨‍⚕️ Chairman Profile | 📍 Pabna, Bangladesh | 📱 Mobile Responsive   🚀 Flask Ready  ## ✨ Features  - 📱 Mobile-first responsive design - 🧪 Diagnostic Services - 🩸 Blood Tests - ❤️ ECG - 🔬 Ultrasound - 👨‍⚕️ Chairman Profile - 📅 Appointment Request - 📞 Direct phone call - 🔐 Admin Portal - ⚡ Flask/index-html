@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <title>ECO Plus Diagnostic Center</title>
+
+    <meta name="description"
+          content="ECO Plus Diagnostic Center - Pabna, Bangladesh">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="container nav-container">
+
+        <a href="/" class="logo">
+            🏥 ECO Plus
+        </a>
+
+        <button class="menu-toggle"
+                id="menuToggle"
+                aria-label="Open menu"
+                aria-expanded="false">
+            ☰
+        </button>
+
+        <nav id="mainNav" class="main-nav">
+            <a href="#home">Home</a>
+            <a href="#services">Services</a>
+            <a href="#tests">Tests</a>
+            <a href="#chairman">Chairman</a>
+            <a href="#appointment">Appointment</a>
+            <a href="#contact">Contact</a>
+        </nav>
+
+    </div>
+</header>
+
+
+<main>
+
+    <!-- HERO -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+
+            <span class="badge">
+                🏥 Trusted Diagnostic Care
+            </span>
+
+            <h1>
+                ECO Plus Diagnostic Center
+            </h1>
+
+            <p>
+                আধুনিক ও নির্ভরযোগ্য ডায়াগনস্টিক সেবা
+                আপনার হাতের কাছে।
+            </p>
+
+            <div class="hero-actions">
+                <a href="#appointment" class="btn btn-primary">
+                    📅 Appointment
+                </a>
+
+                <a href="tel:+8801711194225"
+                   class="btn btn-secondary">
+                    📞 Call Now
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- SERVICES -->
+    <section id="services" class="section">
+        <div class="container">
+
+            <div class="section-heading">
+                <span>Our Services</span>
+                <h2>আমাদের সেবাসমূহ</h2>
+            </div>
+
+            <div class="cards">
+
+                <article class="card">
+                    <div class="card-icon">🧪</div>
+                    <h3>Diagnostic Tests</h3>
+                    <p>
+                        বিভিন্ন ধরনের প্রয়োজনীয়
+                        ডায়াগনস্টিক পরীক্ষা।
+                    </p>
+                </article>
+
+                <article class="card">
+                    <div class="card-icon">🩸</div>
+                    <h3>Blood Tests</h3>
+                    <p>
+                        নির্ভরযোগ্য ও প্রয়োজনীয়
+                        রক্ত পরীক্ষা।
+                    </p>
+                </article>
+
+                <article class="card">
+                    <div class="card-icon">❤️</div>
+                    <h3>ECG</h3>
+                    <p>
+                        হৃদযন্ত্রের স্বাস্থ্য পরীক্ষা
+                        ও ECG সেবা।
+                    </p>
+                </article>
+
+                <article class="card">
+                    <div class="card-icon">👨‍⚕️</div>
+                    <h3>Doctor Consultation</h3>
+                    <p>
+                        প্রয়োজন অনুযায়ী চিকিৎসকের
+                        পরামর্শ গ্রহণের সুবিধা।
+                    </p>
+                </article>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- TESTS -->
+    <section id="tests" class="section section-alt">
+        <div class="container">
+
+            <div class="section-heading">
+                <span>Available Tests</span>
+                <h2>উপলভ্য পরীক্ষা</h2>
+            </div>
+
+            <div class="test-list">
+
+                <div class="test-item">
+                    <span>🩸</span>
+                    <strong>Blood Test</strong>
+                </div>
+
+                <div class="test-item">
+                    <span>🧪</span>
+                    <strong>Urine Test</strong>
+                </div>
+
+                <div class="test-item">
+                    <span>❤️</span>
+                    <strong>ECG</strong>
+                </div>
+
+                <div class="test-item">
+                    <span>🔬</span>
+                    <strong>Ultrasound</strong>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- CHAIRMAN -->
+    <section id="chairman" class="section">
+        <div class="container">
+
+            <div class="section-heading">
+                <span>Leadership</span>
+                <h2>চেয়ারম্যান</h2>
+            </div>
+
+            <div class="chairman-card">
+
+                <div class="chairman-image">
+                    <img
+                        src="{{ url_for('static', filename='chairman.jpg') }}"
+                        alt="ECO Plus Diagnostic Center Chairman">
+                </div>
+
+                <div class="chairman-info">
+
+                    <h3>
+                        সাজ্জতুল ইসলাম নাদিম খান
+                    </h3>
+
+                    <p class="chairman-title">
+                        Chairman
+                    </p>
+
+                    <p>
+                        ECO Plus Diagnostic Center-এর
+                        চেয়ারম্যান।
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- APPOINTMENT -->
+    <section id="appointment"
+             class="section section-alt">
+
+        <div class="container">
+
+            <div class="section-heading">
+                <span>Appointment</span>
+                <h2>অ্যাপয়েন্টমেন্ট নিন</h2>
+            </div>
+
+            <form id="appointmentForm"
+                  class="appointment-form"
+                  method="POST"
+                  action="/api/appointments">
+
+                <div class="form-group">
+                    <label for="name">
+                        আপনার নাম
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="আপনার নাম লিখুন"
+                        required>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="phone">
+                        মোবাইল নম্বর
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="০১XXXXXXXXX"
+                        required>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="service">
+                        সেবা নির্বাচন করুন
+                    </label>
+
+                    <select
+                        id="service"
+                        name="service"
+                        required>
+
+                        <option value="">
+                            নির্বাচন করুন
+                        </option>
+
+                        <option value="blood-test">
+                            Blood Test
+                        </option>
+
+                        <option value="urine-test">
+                            Urine Test
+                        </option>
+
+                        <option value="ecg">
+                            ECG
+                        </option>
+
+                        <option value="ultrasound">
+                            Ultrasound
+                        </option>
+
+                        <option value="doctor-consultation">
+                            Doctor Consultation
+                        </option>
+
+                    </select>
+                </div>
+
+
+                <button type="submit"
+                        class="btn btn-primary btn-full">
+                    📅 Appointment Request
+                </button>
+
+                <p id="formMessage"
+                   class="form-message"
+                   aria-live="polite"></p>
+
+            </form>
+
+        </div>
+    </section>
+
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+        <div class="container">
+
+            <div class="section-heading">
+                <span>Contact</span>
+                <h2>যোগাযোগ করুন</h2>
+            </div>
+
+            <div class="contact-grid">
+
+                <div class="contact-card">
+                    <span>📍</span>
+                    <h3>ঠিকানা</h3>
+                    <p>
+                        পাবনা সদর হাসপাতালের সামনে,<br>
+                        পাবনা, বাংলাদেশ
+                    </p>
+                </div>
+
+
+                <div class="contact-card">
+                    <span>📞</span>
+                    <h3>ফোন</h3>
+
+                    <a href="tel:+8801711194225">
+                        ০১৭১১-১৯৪২২৫
+                    </a>
+                </div>
+
+
+                <div class="contact-card">
+                    <span>🔐</span>
+                    <h3>Admin Portal</h3>
+
+                    <a href="/admin/login">
+                        Admin Login
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+
+<!-- FOOTER -->
+<footer class="site-footer">
+
+    <div class="container">
+
+        <h3>
+            🏥 ECO Plus Diagnostic Center
+        </h3>
+
+        <p>
+            আধুনিক ও নির্ভরযোগ্য ডায়াগনস্টিক সেবা।
+        </p>
+
+        <p class="copyright">
+            © 2026 ECO Plus Diagnostic Center.
+            All rights reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+
+</body>
+</html>
