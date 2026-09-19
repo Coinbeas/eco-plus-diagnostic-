@@ -10,7 +10,7 @@ def index():
 
 @app.route("/admin/login")
 def admin_login():
-    return "<h1>Admin Login</h1><p>Coming soon.</p>"
+    return render_template("admin-login.html")
 
 
 @app.route("/api/appointments", methods=["POST"])
