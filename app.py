@@ -19,7 +19,10 @@ DATABASE_PATH = os.environ.get(
     os.path.join(app.instance_path, "appointments.db"),
 )
 
+# Ensure both the Flask instance directory and a custom disk path are writable.
 os.makedirs(app.instance_path, exist_ok=True)
+database_directory = os.path.dirname(os.path.abspath(DATABASE_PATH))
+os.makedirs(database_directory, exist_ok=True)
 
 
 def get_db():
