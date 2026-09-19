@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | ECO Plus Diagnostic Center</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+<body class="dashboard-page">
+    <header class="dashboard-header">
+        <div class="container dashboard-nav">
+            <div class="dashboard-brand"><span>✚</span> ECO Plus</div>
+            <div class="dashboard-actions">
+                <span>Welcome, {{ session.get('admin_username', 'Admin') }}</span>
+                <a href="{{ url_for('admin_logout') }}" class="logout-btn">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-main container">
+        <section class="dashboard-overview">
+            <div class="overview-card">
+                <span>Total appointments</span>
+                <strong>{{ appointments|length }}</strong>
+            </div>
+            <div class="overview-card">
+                <span>Today</span>
+                <strong>{{ appointments|length }}</strong>
+            </div>
+            <div class="overview-card">
+                <span>Status</span>
+                <strong>Active</strong>
+            </div>
+        </section>
+
+        <section class="appointments-panel">
+            <div class="panel-header">
+                <h2>Appointment Requests</h2>
+                <a href="/" class="primary-link">View website</a>
+            </div>
+
+            {% if appointments %}
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Service</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in appointments %}
+                                <tr>
+                                    <td>{{ item.name }}</td>
+                                    <td>{{ item.phone }}</td>
+                                    <td>{{ item.service }}</td>
+                                    <td>{{ item.created_at }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <p>No appointment requests yet.</p>
+                </div>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

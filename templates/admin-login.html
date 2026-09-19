@@ -31,19 +31,23 @@
                 <span class="eyebrow">Secure sign in</span>
                 <h2>Admin Login</h2>
                 <p class="login-intro">আপনার admin account দিয়ে sign in করুন।</p>
-                <form class="login-form" action="#" method="post" onsubmit="return false;">
+
+                {% if error %}
+                    <p class="form-error">{{ error }}</p>
+                {% endif %}
+
+                <form class="login-form" method="post" action="{{ url_for('admin_login') }}">
                     <div class="field">
-                        <label for="email">Email বা Username</label>
-                        <div class="input-wrap"><span>👤</span><input type="text" id="email" name="email" placeholder="আপনার username লিখুন" autocomplete="username" required></div>
+                        <label for="username">Username বা Email</label>
+                        <div class="input-wrap"><span>👤</span><input type="text" id="username" name="username" placeholder="username বা email লিখুন" autocomplete="username" required></div>
                     </div>
                     <div class="field">
                         <div class="label-row"><label for="password">Password</label><a href="#">Forgot password?</a></div>
-                        <div class="input-wrap"><span>🔒</span><input type="password" id="password" name="password" placeholder="আপনার password লিখুন" autocomplete="current-password" required><button type="button" class="password-toggle" aria-label="Show password">Show</button></div>
+                        <div class="input-wrap"><span>🔒</span><input type="password" id="password" name="password" placeholder="password লিখুন" autocomplete="current-password" required><button type="button" class="password-toggle" aria-label="Show password">Show</button></div>
                     </div>
                     <label class="remember"><input type="checkbox" name="remember"> <span>আমাকে মনে রাখুন</span></label>
                     <button class="login-button" type="submit">Sign in to Dashboard <span>→</span></button>
                 </form>
-                <p class="demo-note">Demo UI: authentication backend এখনো সংযুক্ত হয়নি।</p>
             </div>
             <p class="help-text">Access সমস্যা হলে যোগাযোগ করুন <a href="tel:+8801711194225">০১৭১১-১৯৪২২৫</a></p>
         </section>
