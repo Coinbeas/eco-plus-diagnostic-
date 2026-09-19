@@ -1,17 +1,60 @@
-from flask import Flask, render_template, request, jsonify, session, redirect, url_for
+from datetime import datetime, timezone
+from functools import wraps
 import os
-from datetime import datetime
+import sqlite3
+
+from flask import Flask, jsonify, redirect, render_template, request, session, url_for
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "eco-plus-diagnostic-secret-key")
 app.config["SESSION_COOKIE_HTTPONLY"] = True
 app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+app.config["SESSION_COOKIE_SECURE"] = os.environ.get("COOKIE_SECURE", "0") == "1"
 
 ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "admin")
 ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL", "admin@ecoplus.com")
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "admin123")
+DATABASE_PATH = os.environ.get(
+    "DATABASE_PATH",
+    os.path.join(app.instance_path, "appointments.db"),
+)
 
-appointments = []
+os.makedirs(app.instance_path, exist_ok=True)
+
+
+def get_db():
+    connection = sqlite3.connect(DATABASE_PATH)
+    connection.row_factory = sqlite3.Row
+    return connection
+
+
+def init_db():
+    with get_db() as connection:
+        connection.execute(
+            """
+            CREATE TABLE IF NOT EXISTS appointments (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                phone TEXT NOT NULL,
+                service TEXT NOT NULL,
+                created_at TEXT NOT NULL
+            )
+            """
+        )
+        connection.commit()
+
+
+init_db()
+
+
+def admin_required(view):
+    @wraps(view)
+    def wrapped_view(*args, **kwargs):
+        if not session.get("admin_logged_in"):
+            return redirect(url_for("admin_login"))
+        return view(*args, **kwargs)
+
+    return wrapped_view
 
 
 @app.route("/")
@@ -26,12 +69,15 @@ def admin_login():
 
     error = None
     if request.method == "POST":
-        username = (request.form.get("username") or "").strip().lower()
-        email = (request.form.get("email") or "").strip().lower()
+        identifier = (request.form.get("username") or "").strip().lower()
         password = request.form.get("password") or ""
 
-        identifier = username or email
-        if (identifier in {ADMIN_USERNAME.lower(), ADMIN_EMAIL.lower()} and password == ADMIN_PASSWORD):
+        valid_identifier = identifier in {
+            ADMIN_USERNAME.lower(),
+            ADMIN_EMAIL.lower(),
+        }
+        if valid_identifier and password == ADMIN_PASSWORD:
+            session.clear()
             session["admin_logged_in"] = True
             session["admin_username"] = ADMIN_USERNAME
             return redirect(url_for("admin_dashboard"))
@@ -48,11 +94,25 @@ def admin_logout():
 
 
 @app.route("/admin/dashboard")
+@admin_required
 def admin_dashboard():
-    if not session.get("admin_logged_in"):
-        return redirect(url_for("admin_login"))
+    with get_db() as connection:
+        rows = connection.execute(
+            "SELECT id, name, phone, service, created_at "
+            "FROM appointments ORDER BY id DESC"
+        ).fetchall()
 
-    return render_template("admin-dashboard.html", appointments=appointments)
+        today = datetime.now(timezone.utc).date().isoformat()
+        today_count = connection.execute(
+            "SELECT COUNT(*) FROM appointments WHERE substr(created_at, 1, 10) = ?",
+            (today,),
+        ).fetchone()[0]
+
+    return render_template(
+        "admin-dashboard.html",
+        appointments=rows,
+        today_count=today_count,
+    )
 
 
 @app.route("/api/appointments", methods=["POST"])
@@ -66,12 +126,14 @@ def appointments_api():
     if not name or not phone or not service:
         return jsonify({"message": "সব তথ্য পূরণ করুন।"}), 400
 
-    appointments.append({
-        "name": name,
-        "phone": phone,
-        "service": service,
-        "created_at": datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
-    })
+    created_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+    with get_db() as connection:
+        connection.execute(
+            "INSERT INTO appointments (name, phone, service, created_at) "
+            "VALUES (?, ?, ?, ?)",
+            (name, phone, service, created_at),
+        )
+        connection.commit()
 
     return jsonify({
         "message": "✅ আপনার Appointment Request সফলভাবে পাঠানো হয়েছে।"

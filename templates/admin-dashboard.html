@@ -25,7 +25,7 @@
             </div>
             <div class="overview-card">
                 <span>Today</span>
-                <strong>{{ appointments|length }}</strong>
+                <strong>{{ today_count }}</strong>
             </div>
             <div class="overview-card">
                 <span>Status</span>
@@ -47,16 +47,16 @@
                                 <th>Name</th>
                                 <th>Phone</th>
                                 <th>Service</th>
-                                <th>Time</th>
+                                <th>Time (UTC)</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for item in appointments %}
                                 <tr>
-                                    <td>{{ item.name }}</td>
-                                    <td>{{ item.phone }}</td>
-                                    <td>{{ item.service }}</td>
-                                    <td>{{ item.created_at }}</td>
+                                    <td>{{ item["name"] }}</td>
+                                    <td>{{ item["phone"] }}</td>
+                                    <td>{{ item["service"] }}</td>
+                                    <td>{{ item["created_at"] }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
