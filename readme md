@@ -1,0 +1,77 @@
+# 🏥 ECO Plus Diagnostic Center
+
+**Accurate Diagnosis. Better Health.**
+
+ECO Plus Diagnostic Center is a modern, mobile-responsive diagnostic healthcare website designed for managing diagnostic services, available tests, appointment requests, and essential center information.
+
+📍 **Location:** পাবনা সদর হাসপাতালের সামনে, পাবনা, বাংলাদেশ  
+📞 **Contact:** ০১৭১১-১৯৪২২৫  
+👤 **Chairman:** সাজ্জতুল ইসলাম নাদিম খান
+
+---
+
+## ✨ Features
+
+- 📱 Mobile-first responsive design
+- 🏥 Diagnostic Services section
+- 🧪 Available Tests section
+- 🩸 Blood Test information
+- ❤️ ECG service
+- 🔬 Ultrasound service
+- 📅 Online Appointment Request
+- 📞 Direct phone call support
+- 👤 Chairman Profile
+- 🔐 Admin Login Portal
+- 📊 Admin Dashboard
+- 🗂️ Appointment management
+- ⚙️ Flask/Jinja backend support
+- 🔌 REST API-ready appointment system
+- 🚀 Production deployment ready
+
+---
+
+## 🛠️ Technology Stack
+
+### Frontend
+- HTML5
+- CSS3
+- JavaScript
+- Responsive Web Design
+
+### Backend
+- Python
+- Flask
+- Jinja2
+
+### Database
+- SQLite
+
+### Deployment
+- Gunicorn
+- Render-ready
+- GitHub Actions CI
+
+---
+
+## 📁 Project Structure
+
+```text
+eco-plus-diagnostic-/
+│
+├── app.py
+├── requirements.txt
+├── .gitignore
+│
+├── templates/
+│   ├── index.html
+│   ├── admin-login.html
+│   └── admin-dashboard.html
+│
+├── static/
+│   ├── style.css
+│   ├── admin.css
+│   └── app.js
+│
+└── .github/
+    └── workflows/
+        └── main.yml
