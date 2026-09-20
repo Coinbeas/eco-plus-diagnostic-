@@ -1,0 +1,65 @@
+<!DOCTYPE html>  <html lang="bn">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <meta name="theme-color" content="#087f73">  
+    <title>Admin Login | ECO Plus Diagnostic Center</title>  
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">  
+</head>  
+<body class="admin-page">  
+    <main class="admin-shell">  
+        <section class="admin-brand-panel">  
+            <a href="/" class="admin-logo"><span>✚</span> ECO <b>Plus</b></a>  
+            <div class="brand-copy">  
+                <span class="eyebrow">Management portal</span>  
+                <h1>স্বাগতম<br><em>Admin Portal-এ</em></h1>  
+                <p>আপনার সেন্টারের অ্যাপয়েন্টমেন্ট ও দৈনন্দিন কার্যক্রম সহজে পরিচালনা করুন।</p>  
+                <div class="brand-points">  
+                    <span>✓ নিরাপদ ব্যবস্থাপনা</span>  
+                    <span>✓ সহজ অ্যাক্সেস</span>  
+                    <span>✓ দ্রুত সেবা</span>  
+                </div>  
+            </div>  
+            <p class="brand-footer">© 2026 ECO Plus Diagnostic Center</p>  
+        </section>  <section class="admin-form-panel">  
+        <a href="/" class="back-link">← মূল ওয়েবসাইটে ফিরে যান</a>  
+        <div class="login-card">  
+            <div class="lock-icon">🔐</div>  
+            <span class="eyebrow">Secure sign in</span>  
+            <h2>Admin Login</h2>  
+            <p class="login-intro">আপনার admin account দিয়ে sign in করুন।</p>  
+
+            {% if error %}  
+                <p class="form-error">{{ error }}</p>  
+            {% endif %}  
+
+            <form class="login-form" method="post" action="{{ url_for('admin_login') }}">  
+                <div class="field">  
+                    <label for="username">Username বা Email</label>  
+                    <div class="input-wrap"><span>👤</span><input type="text" id="username" name="username" placeholder="username বা email লিখুন" autocomplete="username" required></div>  
+                </div>  
+                <div class="field">  
+                    <div class="label-row"><label for="password">Password</label><a href="#">Forgot password?</a></div>  
+                    <div class="input-wrap"><span>🔒</span><input type="password" id="password" name="password" placeholder="password লিখুন" autocomplete="current-password" required><button type="button" class="password-toggle" aria-label="Show password">Show</button></div>  
+                </div>  
+                <label class="remember"><input type="checkbox" name="remember"> <span>আমাকে মনে রাখুন</span></label>  
+                <button class="login-button" type="submit">Sign in to Dashboard <span>→</span></button>  
+            </form>  
+        </div>  
+        <p class="help-text">Access সমস্যা হলে যোগাযোগ করুন <a href="tel:+8801711194225">০১৭১১-১৯৪২২৫</a></p>  
+    </section>  
+</main>  
+
+<script>  
+    const toggle = document.querySelector('.password-toggle');  
+    const password = document.querySelector('#password');  
+    if (toggle && password) toggle.addEventListener('click', () => {  
+        const visible = password.type === 'text';  
+        password.type = visible ? 'password' : 'text';  
+        toggle.textContent = visible ? 'Show' : 'Hide';  
+        toggle.setAttribute('aria-label', visible ? 'Show password' : 'Hide password');  
+    });  
+</script>
+
+</body>  
+</html>  
