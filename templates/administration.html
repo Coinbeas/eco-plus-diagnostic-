@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard | ECO Plus Diagnostic Center</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='admin.css') }}">
+
+</head>
+
+
+<body class="dashboard-page">
+
+
+<header class="dashboard-header">
+
+    <nav class="dashboard-nav">
+
+        <div class="dashboard-brand">
+
+            <div class="admin-logo">
+                +
+            </div>
+
+            <div>
+                <strong>
+                    ECO Plus Diagnostic Center
+                </strong>
+
+                <span>
+                    Admin Portal
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-actions">
+
+            <a
+                href="{{ url_for('admin_logout') }}"
+                class="logout-btn"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+
+<main class="dashboard-main">
+
+
+    <section class="dashboard-overview">
+
+        <div class="overview-card">
+
+            <span>
+                Total Appointments
+            </span>
+
+            <strong>
+                {{ appointments|length }}
+            </strong>
+
+        </div>
+
+
+        <div class="overview-card">
+
+            <span>
+                Today's Appointments
+            </span>
+
+            <strong>
+                {{ today_count }}
+            </strong>
+
+        </div>
+
+
+        <div class="overview-card">
+
+            <span>
+                Portal Status
+            </span>
+
+            <strong>
+                Active
+            </strong>
+
+        </div>
+
+    </section>
+
+
+
+    <section class="appointments-panel">
+
+        <div class="panel-header">
+
+            <h2>
+                Appointment Requests
+            </h2>
+
+            <a
+                href="{{ url_for('index') }}"
+                class="primary-link"
+            >
+                View Website
+            </a>
+
+        </div>
+
+
+
+        {% if appointments %}
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Service</th>
+                        <th>Date</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                {% for appointment in appointments %}
+
+                    <tr>
+
+                        <td>
+                            {{ appointment["id"] }}
+                        </td>
+
+                        <td>
+                            {{ appointment["name"] }}
+                        </td>
+
+                        <td>
+                            {{ appointment["phone"] }}
+                        </td>
+
+                        <td>
+                            {{ appointment["service"] }}
+                        </td>
+
+                        <td>
+                            {{ appointment["created_at"] }}
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <p>
+                    এখনো কোনো Appointment Request নেই।
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </section>
+
+
+</main>
+
+
+</body>
+</html>
